@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "@auth/*": ["src/auth/*"],
+      "@config/*": ["src/config/*"],
+      "@shared/*": ["src/shared/*"],
+      "@prisma/*": ["src/prisma/*"],
+      "@interfaces/*": ["src/shared/interfaces/*"],
+      "@filters/*": ["src/shared/filters/*"],
+      "@interceptors/*": ["src/shared/interceptors/*"],
+      "@pipes/*": ["src/shared/pipes/*"]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+    // "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    // "[javascript]": {
+    //     "editor.defaultFormatter": "esbenp.prettier-vscode"
+    // },
+    // "[javascriptreact]": {
+    //     "editor.defaultFormatter": "esbenp.prettier-vscode"
+    // },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace",
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.addMissingImports": "explicit"
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "material-icon-theme.activeIconPack": "nest",
+    "material-icon-theme.files.associations": {
+        "*.repository.ts": "database",
+    },
+    "yaml.schemas": {
+        "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
+    },
+    "yaml.customTags": [
+        "!ENV scalar",
+        "!ENV sequence",
+        "tag:yaml.org,2002:python/name:materialx.emoji.to_svg",
+        "tag:yaml.org,2002:python/name:materialx.emoji.twemoji",
+        "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format"
+    ]
+}
