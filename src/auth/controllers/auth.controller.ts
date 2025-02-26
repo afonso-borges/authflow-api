@@ -1,13 +1,4 @@
-import {
-    Controller,
-    Post,
-    Body,
-    Headers,
-    Ip,
-    HttpCode,
-    HttpStatus,
-    UsePipes,
-} from "@nestjs/common";
+import { Controller, Post, Body, HttpCode, HttpStatus, UsePipes } from "@nestjs/common";
 import { AuthService } from "@/auth/services/auth.service";
 import {
     loginSchema,
@@ -45,12 +36,8 @@ export class AuthController {
     @Post("login")
     @UsePipes(new ZodValidationPipe(loginSchema))
     @HttpCode(HttpStatus.OK)
-    async login(
-        @Body() loginDto: LoginDTO,
-        @Headers("user-agent") userAgent?: string,
-        @Ip() ip?: string,
-    ): Promise<BaseResponse<AuthResponseDTO>> {
-        const authResponse = await this.authService.login(loginDto, userAgent, ip);
+    async login(@Body() loginDto: LoginDTO): Promise<BaseResponse<AuthResponseDTO>> {
+        const authResponse = await this.authService.login(loginDto);
 
         return {
             data: authResponse,
@@ -65,10 +52,8 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     async refreshToken(
         @Body() { refresh_token }: RefreshTokenDTO,
-        @Headers("user-agent") userAgent?: string,
-        @Ip() ip?: string,
     ): Promise<BaseResponse<AuthResponseDTO>> {
-        const authResponse = await this.authService.refreshToken(refresh_token, userAgent, ip);
+        const authResponse = await this.authService.refreshToken(refresh_token);
 
         return {
             data: authResponse,

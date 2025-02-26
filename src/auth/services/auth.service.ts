@@ -37,13 +37,9 @@ export class AuthService {
         return userWithoutPassword;
     }
 
-    async login(
-        loginDto: LoginDTO,
-        deviceInfo?: string,
-        ipAddress?: string,
-    ): Promise<AuthResponseDTO> {
+    async login(loginDto: LoginDTO): Promise<AuthResponseDTO> {
         const user = await this.validateUser(loginDto.email, loginDto.password);
-        const tokens = await this.generateTokens(user.id, deviceInfo, ipAddress);
+        const tokens = await this.generateTokens(user.id);
 
         return {
             access_token: tokens.accessToken,
@@ -76,25 +72,21 @@ export class AuthService {
         return userWithoutPassword;
     }
 
-    private async generateTokens(userId: string, deviceInfo?: string, ipAddress?: string) {
+    private async generateTokens(userId: string) {
         const accessToken = this.jwtService.sign({ sub: userId });
-        const refreshToken = await this.refreshTokenService.createRefreshToken(
-            userId,
-            deviceInfo,
-            ipAddress,
-        );
+        const refreshToken = await this.refreshTokenService.createRefreshToken(userId);
 
         return { accessToken, refreshToken };
     }
 
-    async refreshToken(token: string, deviceInfo?: string, ipAddress?: string) {
+    async refreshToken(token: string) {
         const refreshTokenData = await this.refreshTokenService.validateRefreshToken(token);
 
         // Revoga o token atual após validação
         await this.refreshTokenService.revokeRefreshToken(token);
 
         // Gera novos tokens
-        const tokens = await this.generateTokens(refreshTokenData.userId, deviceInfo, ipAddress);
+        const tokens = await this.generateTokens(refreshTokenData.userId);
 
         return {
             access_token: tokens.accessToken,

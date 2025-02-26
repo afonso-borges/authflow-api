@@ -35,8 +35,6 @@ model RefreshToken {
   userId     String
   expiresAt  DateTime
   isRevoked  Boolean   @default(false)
-  deviceInfo String? // User-Agent do dispositivo
-  ipAddress  String? // IP do dispositivo
   lastUsedAt DateTime?
   createdAt  DateTime  @default(now())
 

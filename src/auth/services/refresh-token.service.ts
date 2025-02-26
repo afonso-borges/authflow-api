@@ -10,7 +10,7 @@ export class RefreshTokenService {
         private readonly jwtService: JwtService,
     ) {}
 
-    async createRefreshToken(userId: string, deviceInfo?: string, ipAddress?: string) {
+    async createRefreshToken(userId: string) {
         const expiresAt = new Date();
         expiresAt.setDate(expiresAt.getDate() + 7); // 7 dias de expiração
 
@@ -19,8 +19,6 @@ export class RefreshTokenService {
                 token: this.generateRefreshToken(),
                 userId,
                 expiresAt,
-                deviceInfo,
-                ipAddress,
             },
         });
 
