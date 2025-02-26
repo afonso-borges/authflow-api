@@ -3,7 +3,7 @@ import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify
 import { AppModule } from "./app.module";
 import { ValidationPipe, Logger } from "@nestjs/common";
 import { ZodErrorFilter } from "@filters/zod-error.filter";
-// import { ResponseStatusInterceptor } from "@interceptors/response.interceptor";
+import { ResponseStatusInterceptor } from "@interceptors/response.interceptor";
 import { ConfigService } from "@nestjs/config";
 import { Env } from "@config/env";
 
@@ -20,7 +20,7 @@ async function bootstrap() {
             whitelist: true,
             forbidNonWhitelisted: true,
         }),
-    );
+    ).useGlobalInterceptors(new ResponseStatusInterceptor());
 
     const configService = app.get<ConfigService<Env, true>>(ConfigService);
 
