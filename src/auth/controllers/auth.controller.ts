@@ -1,4 +1,14 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, UsePipes } from "@nestjs/common";
+import {
+    Controller,
+    Post,
+    Body,
+    HttpCode,
+    HttpStatus,
+    UsePipes,
+    Get,
+    UseGuards,
+    Req,
+} from "@nestjs/common";
 import { AuthService } from "@/auth/services/auth.service";
 import {
     loginSchema,
@@ -8,9 +18,14 @@ import {
     RegisterDTO,
     RefreshTokenDTO,
     AuthResponseDTO,
+    AuthUserDTO,
+    userSchema,
 } from "@/auth/dtos/auth.schema";
 import { BaseResponse } from "@/shared/interfaces/response.interface";
 import { ZodValidationPipe } from "@/shared/pipes/zod-validation-pipe";
+import { JwtAuthGuard } from "@/shared/guards/jwt-auth.guard";
+import { FastifyRequest } from "fastify";
+import { AuthFlowRequest } from "@/shared/interfaces/authflow-request.interface";
 
 @Controller("auth")
 export class AuthController {
@@ -60,6 +75,17 @@ export class AuthController {
             meta: null,
             status: HttpStatus.OK,
             message: "auth.token.refreshed",
+        };
+    }
+
+    @Get("me")
+    @UsePipes(new ZodValidationPipe(userSchema))
+    async getMe(@Req() req: FastifyRequest): Promise<BaseResponse<AuthUserDTO>> {
+        return {
+            data: await this.authService.getMe(req.headers.authorization),
+            meta: null,
+            status: HttpStatus.OK,
+            message: "auth.me.success",
         };
     }
 }

@@ -4,6 +4,7 @@ import { compare, hash } from "bcrypt";
 import { PrismaRepository } from "@/shared/repositories/prisma.repository";
 import { LoginDTO, RegisterDTO, AuthUserDTO, AuthResponseDTO } from "@auth/dtos/auth.schema";
 import { RefreshTokenService } from "@auth/services/refresh-token.service";
+import { sub } from "date-fns";
 
 @Injectable()
 export class AuthService {
@@ -93,5 +94,32 @@ export class AuthService {
             refresh_token: tokens.refreshToken,
             user: refreshTokenData.user,
         };
+    }
+
+    async getMe(token: string | undefined): Promise<AuthUserDTO | null> {
+        if (!token) {
+            throw new UnauthorizedException("auth.error.no_token_provided");
+        }
+        const [, tokenHash] = token.split(" ");
+
+        try {
+            const { sub } = this.jwtService.verify(tokenHash);
+            const user = await this.prisma.user.findUnique({
+                where: { id: sub },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    status: true,
+                    createdAt: true,
+                    updatedAt: true,
+                },
+            });
+
+            return user;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+            throw new UnauthorizedException("auth.error.invalid_token");
+        }
     }
 }
