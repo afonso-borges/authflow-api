@@ -1,5 +1,6 @@
 import { RegisterDTO, AuthResponseDTO, registerSchema } from "@/auth/dtos/auth.schema";
-import { AuthService } from "@/auth/services/auth.service";
+import { LoginService } from "@/auth/services/login/login.service";
+import { RegisterService } from "@/auth/services/register/register.service";
 import { AuthFlowController } from "@/shared/interfaces/authflow-controller.interface";
 import { BaseResponse } from "@/shared/interfaces/response.interface";
 import { ZodValidationPipe } from "@/shared/pipes/zod-validation-pipe";
@@ -7,13 +8,16 @@ import { Body, Controller, HttpStatus, Post, UsePipes } from "@nestjs/common";
 
 @Controller("auth")
 export class RegisterController implements AuthFlowController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(
+        private readonly registerService: RegisterService,
+        private readonly loginService: LoginService,
+    ) {}
 
     @Post("register")
     @UsePipes(new ZodValidationPipe(registerSchema))
     async handle(@Body() registerDto: RegisterDTO): Promise<BaseResponse<AuthResponseDTO>> {
-        const user = await this.authService.register(registerDto);
-        const authResponse = await this.authService.login({
+        const user = await this.registerService.execute(registerDto);
+        const authResponse = await this.loginService.execute({
             email: user.email,
             password: registerDto.password,
         });
