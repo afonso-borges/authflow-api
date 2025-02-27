@@ -4,7 +4,6 @@ import { compare, hash } from "bcrypt";
 import { PrismaRepository } from "@/shared/repositories/prisma.repository";
 import { LoginDTO, RegisterDTO, AuthUserDTO, AuthResponseDTO } from "@auth/dtos/auth.schema";
 import { RefreshTokenService } from "@auth/services/refresh-token.service";
-import { sub } from "date-fns";
 
 @Injectable()
 export class AuthService {

@@ -6,6 +6,10 @@ import { ZodErrorFilter } from "@filters/zod-error.filter";
 import { ResponseStatusInterceptor } from "@interceptors/response.interceptor";
 import { ConfigService } from "@nestjs/config";
 import { Env } from "@config/env";
+import { UnexpectedExceptionsFilter } from "./shared/filters/unexpected-exceptions.filter";
+import { HttpExceptionsFilter } from "./shared/filters/http-exceptions.filter";
+import { PrismaClientKnownRequestErrorFilter } from "./shared/filters/prisma-client-known-request-error.filter";
+import { PaginationExceptionFilter } from "./shared/filters/pagination-exception.filter";
 
 async function bootstrap() {
     const logger = new Logger("Bootstrap");
@@ -27,8 +31,13 @@ async function bootstrap() {
     // Prefixo global para todas as rotas
     app.setGlobalPrefix("api");
 
-    // Filtro de exceção para erros do Zod
-    app.useGlobalFilters(new ZodErrorFilter());
+    app.useGlobalFilters(
+        new UnexpectedExceptionsFilter(),
+        new HttpExceptionsFilter(),
+        new PrismaClientKnownRequestErrorFilter(),
+        new ZodErrorFilter(),
+        new PaginationExceptionFilter(),
+    );
 
     app.enableCors({
         origin: configService.get<string>("CORS_ORIGIN"),
