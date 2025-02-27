@@ -7,7 +7,6 @@ Uma API robusta de autenticação construída com NestJS, Prisma e PostgreSQL, o
 - ✅ Registro e login de usuários
 - 🔄 Sistema de refresh token
 - 🔒 Autenticação JWT
-- 📱 Rastreamento de dispositivos
 - 🌐 Suporte a i18n para mensagens
 - 🛡️ Validação de dados com Zod
 - 📝 Logs estruturados
@@ -76,6 +75,7 @@ npm run start:dev
 POST /auth/register
 POST /auth/login
 POST /auth/refresh
+GET /auth/me
 ```
 
 ### Formato de Resposta
@@ -96,7 +96,6 @@ interface BaseResponse<T> {
 - Senhas hasheadas com bcrypt
 - Tokens JWT com expiração
 - Sistema de refresh token com revogação
-- Rastreamento de dispositivos e IPs
 - Proteção contra ataques comuns
 
 ## 🧪 Testes
