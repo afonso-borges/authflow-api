@@ -1,14 +1,4 @@
-import {
-    Controller,
-    Post,
-    Body,
-    HttpCode,
-    HttpStatus,
-    UsePipes,
-    Get,
-    UseGuards,
-    Req,
-} from "@nestjs/common";
+import { Controller, Post, Body, HttpCode, HttpStatus, UsePipes, Get, Req } from "@nestjs/common";
 import { AuthService } from "@/auth/services/auth.service";
 import {
     loginSchema,
@@ -23,9 +13,7 @@ import {
 } from "@/auth/dtos/auth.schema";
 import { BaseResponse } from "@/shared/interfaces/response.interface";
 import { ZodValidationPipe } from "@/shared/pipes/zod-validation-pipe";
-import { JwtAuthGuard } from "@/shared/guards/jwt-auth.guard";
 import { FastifyRequest } from "fastify";
-import { AuthFlowRequest } from "@/shared/interfaces/authflow-request.interface";
 
 @Controller("auth")
 export class AuthController {
