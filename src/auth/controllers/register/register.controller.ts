@@ -16,9 +16,9 @@ export class RegisterController implements AuthFlowController {
     @Post("register")
     @UsePipes(new ZodValidationPipe(registerSchema))
     async handle(@Body() registerDto: RegisterDTO): Promise<BaseResponse<AuthResponseDTO>> {
-        const user = await this.registerService.execute(registerDto);
+        await this.registerService.execute(registerDto);
         const authResponse = await this.loginService.execute({
-            email: user.email,
+            email: registerDto.email,
             password: registerDto.password,
         });
 

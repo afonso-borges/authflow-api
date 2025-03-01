@@ -32,6 +32,10 @@ describe("LoginController", () => {
         service = module.get<LoginService>(LoginService);
     });
 
+    it("should be defined", () => {
+        expect(controller).toBeDefined();
+    });
+
     it("should call service.execute with loginData", async () => {
         await controller.handle(loginData);
         expect(service.execute).toHaveBeenCalledWith(loginData);
