@@ -10,7 +10,6 @@ import { PrismaClient } from "@prisma/client";
 
 @Injectable()
 class BasePrismaRepository extends PrismaClient implements OnModuleInit, OnModuleDestroy {
-    static user: any;
     constructor() {
         super({
             log: process.env.NODE_ENV !== "development" ? ["error"] : ["query", "info", "warn"],
