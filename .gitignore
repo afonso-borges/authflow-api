@@ -17,9 +17,14 @@ node_modules/
 /build
 
 # Database
-/prisma/migrations/
+/app/prisma/migrations/
 *.db
 *.db-journal
+
+# Prisma
+.prisma/
+app/prisma/dev.db
+app/prisma/migrations/
 
 # Logs
 logs
@@ -27,6 +32,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # Tests
 /coverage
@@ -40,6 +46,11 @@ yarn-error.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # OS
 .DS_Store
@@ -51,3 +62,15 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# NestJS
+.nest
+
+# Temporary files
+tmp/
+temp/
+
+# Cache
+.eslintcache
+.cache

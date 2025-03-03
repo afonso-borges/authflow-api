@@ -137,9 +137,6 @@ test/                     # Testes e2e
 O projeto utiliza aliases de path para facilitar as importações:
 
 ```typescript
-// Importando da raiz do projeto
-import { Something } from '@app/path/to/file';
-
 // Importando de módulos específicos
 import { Something } from '@auth/path/to/file';
 import { Something } from '@shared/path/to/file';
