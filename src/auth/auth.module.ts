@@ -1,16 +1,14 @@
-import { Module } from "@nestjs/common";
-import { JwtModule } from "@nestjs/jwt";
-import { ConfigService } from "@nestjs/config";
-import { AuthController } from "./controllers/auth.controller";
-import { AuthService } from "./services/auth.service";
-import { RefreshTokenService } from "./services/refresh-token.service";
-import { JwtStrategy } from "./strategies/jwt.strategy";
 import { prismaInstance } from "@/shared/repositories/prisma.repository";
-import { ConfigModule } from "@nestjs/config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { JwtModule } from "@nestjs/jwt";
+import { Module } from "@nestjs/common";
+import * as AuthControllers from "./controllers";
+import * as AuthServices from "./services";
+import { JwtStrategy } from "./strategies/jwt.strategy";
 
 @Module({
     imports: [
-        ConfigModule,
+        ConfigModule.forRoot(),
         JwtModule.registerAsync({
             useFactory: (configService: ConfigService) => ({
                 secret: configService.get("JWT_SECRET"),
@@ -21,16 +19,15 @@ import { ConfigModule } from "@nestjs/config";
             inject: [ConfigService],
         }),
     ],
-    controllers: [AuthController],
+    controllers: [...Object.values(AuthControllers)],
     providers: [
         {
             provide: "PrismaRepository",
             useValue: prismaInstance,
         },
-        AuthService,
-        RefreshTokenService,
+        ...Object.values(AuthServices),
         JwtStrategy,
     ],
-    exports: [AuthService],
+    exports: [],
 })
 export class AuthModule {}
