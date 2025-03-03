@@ -114,15 +114,46 @@ npm run test:cov
 ## 📦 Estrutura do Projeto
 
 ```
-src/
-├── auth/                  # Módulo de autenticação
-│   ├── controllers/      # Controladores
-│   ├── dtos/            # Objetos de transferência de dados
-│   ├── services/        # Serviços
-│   └── strategies/      # Estratégias JWT
-├── prisma/              # Configuração e schemas do Prisma
-├── shared/             # Recursos compartilhados
-└── main.ts            # Ponto de entrada da aplicação
+app/
+├── src/                  # Código fonte da aplicação
+│   ├── auth/             # Módulo de autenticação
+│   │   ├── controllers/  # Controladores
+│   │   ├── dtos/         # Objetos de transferência de dados
+│   │   ├── services/     # Serviços
+│   │   └── strategies/   # Estratégias JWT
+│   ├── config/           # Configurações da aplicação
+│   ├── shared/           # Recursos compartilhados
+│   │   ├── interfaces/   # Interfaces compartilhadas
+│   │   ├── filters/      # Filtros de exceção
+│   │   ├── interceptors/ # Interceptadores
+│   │   └── pipes/        # Pipes de validação
+│   └── main.ts           # Ponto de entrada da aplicação
+├── prisma/               # Configuração e schemas do Prisma
+test/                     # Testes e2e
+```
+
+## 🔄 Path Aliases
+
+O projeto utiliza aliases de path para facilitar as importações:
+
+```typescript
+// Importando da raiz do projeto
+import { Something } from '@app/path/to/file';
+
+// Importando de módulos específicos
+import { Something } from '@auth/path/to/file';
+import { Something } from '@shared/path/to/file';
+import { Something } from '@config/path/to/file';
+import { Something } from '@prisma/path/to/file';
+
+// Importando de diretórios específicos dentro de shared
+import { Something } from '@interfaces/path/to/file';
+import { Something } from '@filters/path/to/file';
+import { Something } from '@interceptors/path/to/file';
+import { Something } from '@pipes/path/to/file';
+
+// Importando de testes
+import { Something } from '@test/path/to/file';
 ```
 
 ## 🤝 Contribuindo

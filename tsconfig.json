@@ -18,15 +18,17 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@auth/*": ["src/auth/*"],
-      "@config/*": ["src/config/*"],
-      "@shared/*": ["src/shared/*"],
-      "@prisma/*": ["src/prisma/*"],
-      "@interfaces/*": ["src/shared/interfaces/*"],
-      "@filters/*": ["src/shared/filters/*"],
-      "@interceptors/*": ["src/shared/interceptors/*"],
-      "@pipes/*": ["src/shared/pipes/*"]
+      "@auth/*": ["app/src/auth/*"],
+      "@config/*": ["app/src/config/*"],
+      "@shared/*": ["app/src/shared/*"],
+      "@prisma/*": ["app/prisma/*"],
+      "@interfaces/*": ["app/src/shared/interfaces/*"],
+      "@filters/*": ["app/src/shared/filters/*"],
+      "@interceptors/*": ["app/src/shared/interceptors/*"],
+      "@pipes/*": ["app/src/shared/pipes/*"],
+      "@test/*": ["test/*"]
     }
-  }
+  },
+  "include": ["app/src/**/*", "app/prisma/**/*", "test/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
