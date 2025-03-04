@@ -1,5 +1,5 @@
-import { UserDTO, UserPaginationDTO, userPaginationSchema } from "@user/dtos/user.schema";
-import { ListUsersService } from "@user/services";
+import { UserDTO, UserPaginationDTO, userPaginationSchema } from "app/src/users/dtos/user.schema";
+import { ListUsersService } from "app/src/users/services";
 import { AuthFlowController } from "@shared/interfaces/authflow-controller.interface";
 import { BaseResponse } from "@shared/interfaces/response.interface";
 import { ZodValidationPipe } from "@shared/pipes/zod-validation-pipe";

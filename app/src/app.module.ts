@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { AuthModule } from "@auth/auth.module";
-import { UserModule } from "@user/user.module";
+import { UserModule } from "app/src/users/user.module";
 import { UtilsModule } from "@shared/utils/utils.module";
 import { envSchema } from "./config/env";
 

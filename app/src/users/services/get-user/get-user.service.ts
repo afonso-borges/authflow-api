@@ -1,4 +1,4 @@
-import { UserDTO } from "@user/dtos/user.schema";
+import { UserDTO } from "app/src/users/dtos/user.schema";
 import { Service } from "@shared/interfaces/service.interface";
 import { PrismaRepository } from "@shared/repositories/prisma.repository";
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";

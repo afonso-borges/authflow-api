@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@auth/*": ["app/src/auth/*"],
-      "@user/*": ["app/src/user/*"],
+      "@user/*": ["app/src/users/*"],
       "@config/*": ["app/src/config/*"],
       "@shared/*": ["app/src/shared/*"],
       "@prisma/*": ["app/prisma/*"],

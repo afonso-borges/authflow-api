@@ -1,8 +1,15 @@
-import { UpdateUserDTO, UserDTO } from "@user/dtos/user.schema";
+import { UpdateUserDTO, UserDTO, userStatusEnum } from "app/src/users/dtos/user.schema";
 import { Service } from "@shared/interfaces/service.interface";
 import { PrismaRepository } from "@shared/repositories/prisma.repository";
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { hash } from "bcrypt";
+
+// Interface para os dados de atualização do usuário
+interface UserUpdateData {
+    name?: string;
+    status?: typeof userStatusEnum._type;
+    password?: string;
+}
 
 @Injectable()
 export class UpdateUserService implements Service {
@@ -20,7 +27,7 @@ export class UpdateUserService implements Service {
             throw new NotFoundException("user.error.not_found");
         }
 
-        const updateData: any = {};
+        const updateData: UserUpdateData = {};
 
         if (updateUserDto.name) {
             updateData.name = updateUserDto.name;

@@ -1,8 +1,7 @@
-import { UserDTO, UserPaginationDTO, userStatusEnum } from "@user/dtos/user.schema";
+import { UserDTO, UserPaginationDTO, userStatusEnum } from "app/src/users/dtos/user.schema";
 import { Service } from "@shared/interfaces/service.interface";
 import { PrismaRepository } from "@shared/repositories/prisma.repository";
 import { Inject, Injectable } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
 
 // Interface para o filtro de usuários
 interface UserWhereInput {

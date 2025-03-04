@@ -9,7 +9,7 @@ const config: Config = {
         "@auth/(.*)": "<rootDir>/app/src/auth/$1",
         "@config/(.*)": "<rootDir>/app/src/config/$1",
         "@shared/(.*)": "<rootDir>/app/src/shared/$1",
-        "@prisma/(.*)": "<rootDir>/app/prisma/$1",
+        "app/src/users/(.*)": "<rootDir>/app/src/users/$1",
         "@interfaces/(.*)": "<rootDir>/app/src/shared/interfaces/$1",
         "@filters/(.*)": "<rootDir>/app/src/shared/filters/$1",
         "@interceptors/(.*)": "<rootDir>/app/src/shared/interceptors/$1",

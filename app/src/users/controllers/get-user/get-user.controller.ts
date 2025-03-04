@@ -1,5 +1,5 @@
-import { UserDTO } from "@user/dtos/user.schema";
-import { GetUserService } from "@user/services";
+import { UserDTO } from "app/src/users/dtos/user.schema";
+import { GetUserService } from "app/src/users/services";
 import { AuthFlowController } from "@shared/interfaces/authflow-controller.interface";
 import { BaseResponse } from "@shared/interfaces/response.interface";
 import { Controller, Get, Param, HttpStatus, UseGuards } from "@nestjs/common";
