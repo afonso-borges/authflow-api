@@ -3,17 +3,21 @@
   "packageManager": "yarn@4.2.2",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"app/src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"app/src/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{app/src,apps,libs,test}/**/*.ts\"",
+    "lint": "eslint \"{app/src,apps,libs}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "prisma:generate": "prisma generate --schema=./app/prisma/schema.prisma",
+    "prisma:migrate:dev": "prisma migrate dev --schema=./app/prisma/schema.prisma",
+    "prisma:migrate:deploy": "prisma migrate deploy --schema=./app/prisma/schema.prisma",
+    "prisma:studio": "prisma studio --schema=./app/prisma/schema.prisma",
+    "db:reset": "prisma migrate reset --schema=./app/prisma/schema.prisma --force"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
@@ -65,6 +69,10 @@
     "prettier": "^3.5.0",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "webpack": "^5.90.1"
+  },
+  "prisma": {
+    "schema": "./app/prisma/schema.prisma"
   }
 }
