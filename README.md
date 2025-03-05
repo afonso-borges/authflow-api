@@ -32,7 +32,7 @@ Uma API robusta de autenticação construída com NestJS, Prisma e PostgreSQL, o
 1. Clone o repositório:
 
 ```bash
-git clone <seu-repositorio>
+git clone git@github.com:afonso-borges/authflow-api.git
 cd authflow-api
 ```
 
@@ -111,9 +111,6 @@ interface BaseResponse<T> {
 # unit tests
 npm run test
 
-# e2e tests
-npm run test:e2e
-
 # test coverage
 npm run test:cov
 ```
@@ -136,28 +133,6 @@ app/
 │   │   └── pipes/        # Pipes de validação
 │   └── main.ts           # Ponto de entrada da aplicação
 ├── prisma/               # Configuração e schemas do Prisma
-test/                     # Testes e2e
-```
-
-## 🔄 Path Aliases
-
-O projeto utiliza aliases de path para facilitar as importações:
-
-```typescript
-// Importando de módulos específicos
-import { Something } from "@auth/path/to/file";
-import { Something } from "@shared/path/to/file";
-import { Something } from "@config/path/to/file";
-import { Something } from "@prisma/path/to/file";
-
-// Importando de diretórios específicos dentro de shared
-import { Something } from "@interfaces/path/to/file";
-import { Something } from "@filters/path/to/file";
-import { Something } from "@interceptors/path/to/file";
-import { Something } from "@pipes/path/to/file";
-
-// Importando de testes
-import { Something } from "@test/path/to/file";
 ```
 
 ## 🤝 Contribuindo
@@ -167,7 +142,3 @@ import { Something } from "@test/path/to/file";
 3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
