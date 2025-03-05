@@ -75,7 +75,14 @@ npm run start:dev
 POST /auth/register
 POST /auth/login
 POST /auth/refresh
-GET /auth/me
+```
+
+### Users
+
+```bash
+GET /users
+GET /users/:id
+PUT /users/:id
 ```
 
 ### Formato de Resposta
@@ -138,19 +145,19 @@ O projeto utiliza aliases de path para facilitar as importações:
 
 ```typescript
 // Importando de módulos específicos
-import { Something } from '@auth/path/to/file';
-import { Something } from '@shared/path/to/file';
-import { Something } from '@config/path/to/file';
-import { Something } from '@prisma/path/to/file';
+import { Something } from "@auth/path/to/file";
+import { Something } from "@shared/path/to/file";
+import { Something } from "@config/path/to/file";
+import { Something } from "@prisma/path/to/file";
 
 // Importando de diretórios específicos dentro de shared
-import { Something } from '@interfaces/path/to/file';
-import { Something } from '@filters/path/to/file';
-import { Something } from '@interceptors/path/to/file';
-import { Something } from '@pipes/path/to/file';
+import { Something } from "@interfaces/path/to/file";
+import { Something } from "@filters/path/to/file";
+import { Something } from "@interceptors/path/to/file";
+import { Something } from "@pipes/path/to/file";
 
 // Importando de testes
-import { Something } from '@test/path/to/file';
+import { Something } from "@test/path/to/file";
 ```
 
 ## 🤝 Contribuindo
