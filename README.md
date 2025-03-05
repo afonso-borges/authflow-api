@@ -132,7 +132,7 @@ app/
 │   │   ├── interceptors/ # Interceptadores
 │   │   └── pipes/        # Pipes de validação
 │   └── main.ts           # Ponto de entrada da aplicação
-├── prisma/               # Configuração e schemas do Prisma
+└── prisma/               # Configuração e schemas do Prisma
 ```
 
 ## 🤝 Contribuindo
