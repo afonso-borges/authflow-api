@@ -1,6 +1,6 @@
 # AuthFlow API
 
-Uma API robusta de autenticação construída com NestJS, Prisma e PostgreSQL, oferecendo um sistema completo de autenticação com refresh tokens e rastreamento de dispositivos.
+Uma API robusta de autenticação construída com NestJS, Prisma e PostgreSQL, oferecendo um sistema completo de autenticação com refresh tokens.
 
 ## 🚀 Funcionalidades
 
