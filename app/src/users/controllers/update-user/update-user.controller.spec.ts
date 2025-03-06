@@ -4,11 +4,11 @@ import { UpdateUserController } from "./update-user.controller";
 import { UpdateUserService } from "app/src/users/services";
 import { GetMetadataService } from "@shared/utils/services/get-metadata.service";
 import { UpdateUserDTO } from "@user/dtos/user.schema";
+import { it } from "node:test";
 
 describe("UpdateUserController", () => {
     let controller: UpdateUserController;
     let service: UpdateUserService;
-    let metadataService: GetMetadataService;
 
     const userId = "user-id-123";
     const updateUserDto: UpdateUserDTO = {
@@ -46,7 +46,6 @@ describe("UpdateUserController", () => {
 
         controller = module.get<UpdateUserController>(UpdateUserController);
         service = module.get<UpdateUserService>(UpdateUserService);
-        metadataService = module.get<GetMetadataService>(GetMetadataService);
     });
 
     it("should be defined", () => {

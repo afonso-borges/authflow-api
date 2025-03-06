@@ -71,7 +71,6 @@ describe("UpdateUserService", () => {
     });
 
     it("should throw NotFoundException when user is not found", async () => {
-        // @ts-ignore
         jest.spyOn(prisma.user, "findUnique").mockResolvedValue(null);
 
         await expect(service.execute(userId, updateUserDto)).rejects.toThrow(
@@ -80,9 +79,9 @@ describe("UpdateUserService", () => {
     });
 
     it("should update user name and status when provided", async () => {
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "findUnique").mockResolvedValue(mockUser);
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "update").mockResolvedValue(mockUpdatedUser);
 
         await service.execute(userId, updateUserDto);
@@ -102,9 +101,9 @@ describe("UpdateUserService", () => {
             password: "new_password",
         };
 
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "findUnique").mockResolvedValue(mockUser);
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "update").mockResolvedValue(mockUpdatedUser);
 
         await service.execute(userId, dtoWithPassword);
@@ -121,9 +120,9 @@ describe("UpdateUserService", () => {
     });
 
     it("should return user without password", async () => {
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "findUnique").mockResolvedValue(mockUser);
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "update").mockResolvedValue(mockUpdatedUser);
 
         const result = await service.execute(userId, updateUserDto);

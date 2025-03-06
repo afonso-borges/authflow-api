@@ -5,6 +5,7 @@ import { Module } from "@nestjs/common";
 import * as AuthControllers from "./controllers";
 import * as AuthServices from "./services";
 import { JwtStrategy } from "./strategies/jwt.strategy";
+import { UtilsModule } from "@shared/utils/utils.module";
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { JwtStrategy } from "./strategies/jwt.strategy";
             }),
             inject: [ConfigService],
         }),
+        UtilsModule,
     ],
     controllers: [...Object.values(AuthControllers)],
     providers: [

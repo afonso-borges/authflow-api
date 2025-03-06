@@ -37,6 +37,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             throw new UnauthorizedException("auth.error.user_inactive");
         }
 
-        return { userId: payload.sub };
+        const { password: _, ...userWithoutPassword } = user;
+
+        return userWithoutPassword;
     }
 }

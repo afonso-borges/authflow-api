@@ -86,7 +86,7 @@ describe("ListUsersController", () => {
         expect(metadataService.execute).toHaveBeenCalledWith(
             mockPaginationParams.page,
             25, // total from service response
-            mockPaginationParams.limit
+            mockPaginationParams.limit,
         );
     });
 
@@ -109,7 +109,7 @@ describe("ListUsersController", () => {
         };
 
         await controller.handle(customParams);
-        
+
         expect(service.execute).toHaveBeenCalledWith(customParams);
     });
 });

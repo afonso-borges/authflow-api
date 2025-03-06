@@ -42,9 +42,26 @@ export const refreshTokenSchema = z.object({
     }),
 });
 
+export const requestPasswordResetSchema = z.object({
+    email: z.string().email(),
+});
+
+export const resetPasswordSchema = z.object({
+    token: z.string(),
+    newPassword: z
+        .string({ invalid_type_error: "user.password.invalid_type_error" })
+        .min(6, { message: "Password must be at least 6 characters long" })
+        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\w\W]{6,}$/, {
+            message:
+                "Password must contain at least one uppercase letter, one lowercase letter and one number",
+        }),
+});
+
 // DTOs gerados a partir dos schemas
 export type LoginDTO = z.infer<typeof loginSchema>;
 export type RegisterDTO = z.infer<typeof registerSchema>;
 export type AuthUserDTO = z.infer<typeof userSchema>;
 export type AuthResponseDTO = z.infer<typeof authResponseSchema>;
 export type RefreshTokenDTO = z.infer<typeof refreshTokenSchema>;
+export type RequestPasswordResetDTO = z.infer<typeof requestPasswordResetSchema>;
+export type ResetPasswordDTO = z.infer<typeof resetPasswordSchema>;
