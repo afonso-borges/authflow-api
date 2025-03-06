@@ -86,6 +86,7 @@ describe("RequestPasswordResetService", () => {
     });
 
     it("should find user by email", async () => {
+        // @ts-expect-error Typing issue
         await service.execute(requestPasswordResetData, mockUser);
         expect(prisma.user.findUnique).toHaveBeenCalledWith({
             where: { email: requestPasswordResetData.email },
@@ -95,6 +96,7 @@ describe("RequestPasswordResetService", () => {
     it("should throw BadRequestException if user not found", async () => {
         jest.spyOn(prisma.user, "findUnique").mockResolvedValueOnce(null);
 
+        // @ts-expect-error Typing issue
         await expect(service.execute(requestPasswordResetData, mockUser)).rejects.toThrow(
             new BadRequestException("auth.password_reset.user_not_found"),
         );
@@ -103,12 +105,14 @@ describe("RequestPasswordResetService", () => {
     it("should throw UnauthorizedException if requesting user is different from authenticated user", async () => {
         const differentUser = { ...mockUser, id: "different-user-id" };
 
+        // @ts-expect-error Typing issue
         await expect(service.execute(requestPasswordResetData, differentUser)).rejects.toThrow(
             new UnauthorizedException("auth.error.unauthorized"),
         );
     });
 
     it("should generate a JWT token with correct payload", async () => {
+        // @ts-expect-error Typing issue
         await service.execute(requestPasswordResetData, mockUser);
         expect(jwtService.sign).toHaveBeenCalledWith(
             {
@@ -124,11 +128,13 @@ describe("RequestPasswordResetService", () => {
     });
 
     it("should get frontend URL from config", async () => {
+        // @ts-expect-error Typing issue
         await service.execute(requestPasswordResetData, mockUser);
         expect(configService.get).toHaveBeenCalledWith("FRONTEND_URL");
     });
 
     it("should send email with reset URL", async () => {
+        // @ts-expect-error Typing issue
         await service.execute(requestPasswordResetData, mockUser);
         const resetUrl = `${mockFrontendUrl}/reset-password?token=${mockToken}`;
         expect(mailService.execute).toHaveBeenCalledWith(
