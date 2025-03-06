@@ -28,7 +28,7 @@ describe("ListUsersService", () => {
         },
     ];
 
-    const mockUsersWithoutPassword = mockUsers.map(({ password, ...rest }) => rest);
+    const mockUsersWithoutPassword = mockUsers.map(({ password: _, ...rest }) => rest);
 
     const defaultPaginationParams: UserPaginationDTO = {
         page: 1,
@@ -61,7 +61,7 @@ describe("ListUsersService", () => {
     });
 
     it("should return users without passwords and total count", async () => {
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "findMany").mockResolvedValue(mockUsers);
         jest.spyOn(prisma.user, "count").mockResolvedValue(mockUsers.length);
 

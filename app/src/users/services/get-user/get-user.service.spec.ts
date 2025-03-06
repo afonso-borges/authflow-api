@@ -50,7 +50,7 @@ describe("GetUserService", () => {
     });
 
     it("should call prisma.user.findUnique with correct params", async () => {
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "findUnique").mockResolvedValue(mockUser);
 
         await service.execute(userId);
@@ -61,7 +61,7 @@ describe("GetUserService", () => {
     });
 
     it("should return user without password when user is found", async () => {
-        // @ts-ignore
+        // @ts-expect-error Typing issue
         jest.spyOn(prisma.user, "findUnique").mockResolvedValue(mockUser);
 
         const result = await service.execute(userId);

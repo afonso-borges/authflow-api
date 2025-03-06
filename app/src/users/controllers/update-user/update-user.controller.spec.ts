@@ -8,7 +8,6 @@ import { UpdateUserDTO } from "@user/dtos/user.schema";
 describe("UpdateUserController", () => {
     let controller: UpdateUserController;
     let service: UpdateUserService;
-    let metadataService: GetMetadataService;
 
     const userId = "user-id-123";
     const updateUserDto: UpdateUserDTO = {

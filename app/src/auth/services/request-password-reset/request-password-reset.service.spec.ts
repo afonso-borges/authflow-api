@@ -1,7 +1,9 @@
 import { RequestPasswordResetDTO } from "@auth/dtos/auth.schema";
+import { BadRequestException, UnauthorizedException } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
+import { User } from "@prisma/client";
 import { PrismaRepository } from "@shared/repositories/prisma.repository";
 import { MailService } from "@shared/utils/services/mail.service";
 import { RequestPasswordResetService } from "./request-password-reset.service";
@@ -17,7 +19,7 @@ describe("RequestPasswordResetService", () => {
         email: "test@mail.com",
     };
 
-    const mockUser = {
+    const mockUser: User = {
         id: "user-id-1",
         email: "test@mail.com",
         name: "Test User",
@@ -39,7 +41,7 @@ describe("RequestPasswordResetService", () => {
                     provide: "PrismaRepository",
                     useValue: {
                         user: {
-                            findUniqueOrThrow: jest.fn().mockResolvedValue(mockUser),
+                            findUnique: jest.fn().mockResolvedValue(mockUser),
                         },
                     },
                 },
@@ -84,14 +86,30 @@ describe("RequestPasswordResetService", () => {
     });
 
     it("should find user by email", async () => {
-        await service.execute(requestPasswordResetData);
-        expect(prisma.user.findUniqueOrThrow).toHaveBeenCalledWith({
+        await service.execute(requestPasswordResetData, mockUser);
+        expect(prisma.user.findUnique).toHaveBeenCalledWith({
             where: { email: requestPasswordResetData.email },
         });
     });
 
+    it("should throw BadRequestException if user not found", async () => {
+        jest.spyOn(prisma.user, "findUnique").mockResolvedValueOnce(null);
+
+        await expect(service.execute(requestPasswordResetData, mockUser)).rejects.toThrow(
+            new BadRequestException("auth.password_reset.user_not_found"),
+        );
+    });
+
+    it("should throw UnauthorizedException if requesting user is different from authenticated user", async () => {
+        const differentUser = { ...mockUser, id: "different-user-id" };
+
+        await expect(service.execute(requestPasswordResetData, differentUser)).rejects.toThrow(
+            new UnauthorizedException("auth.error.unauthorized"),
+        );
+    });
+
     it("should generate a JWT token with correct payload", async () => {
-        await service.execute(requestPasswordResetData);
+        await service.execute(requestPasswordResetData, mockUser);
         expect(jwtService.sign).toHaveBeenCalledWith(
             {
                 sub: mockUser.id,
@@ -106,12 +124,12 @@ describe("RequestPasswordResetService", () => {
     });
 
     it("should get frontend URL from config", async () => {
-        await service.execute(requestPasswordResetData);
+        await service.execute(requestPasswordResetData, mockUser);
         expect(configService.get).toHaveBeenCalledWith("FRONTEND_URL");
     });
 
     it("should send email with reset URL", async () => {
-        await service.execute(requestPasswordResetData);
+        await service.execute(requestPasswordResetData, mockUser);
         const resetUrl = `${mockFrontendUrl}/reset-password?token=${mockToken}`;
         expect(mailService.execute).toHaveBeenCalledWith(
             mockUser.email,

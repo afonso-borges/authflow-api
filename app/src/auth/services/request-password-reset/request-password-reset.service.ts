@@ -1,5 +1,5 @@
 import { RequestPasswordResetDTO } from "@auth/dtos/auth.schema";
-import { Inject, Injectable } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { Service } from "@shared/interfaces/service.interface";
@@ -16,12 +16,20 @@ export class RequestPasswordResetService implements Service {
         private readonly mailerService: MailService,
     ) {}
 
-    async execute(dto: RequestPasswordResetDTO): Promise<void> {
+    async execute(dto: RequestPasswordResetDTO, userEmail: string): Promise<void> {
         const { email } = dto;
 
-        const user = await this.prisma.user.findUniqueOrThrow({
+        const user = await this.prisma.user.findUnique({
             where: { email },
         });
+
+        if (!user) {
+            throw new BadRequestException("auth.password_reset.user_not_found");
+        }
+
+        if (user.email !== userEmail) {
+            throw new UnauthorizedException("auth.error.unauthorized");
+        }
 
         const token = this.jwtService.sign(
             {
