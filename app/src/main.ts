@@ -28,9 +28,6 @@ async function bootstrap() {
 
     const configService = app.get<ConfigService<Env, true>>(ConfigService);
 
-    // Prefixo global para todas as rotas
-    app.setGlobalPrefix("api");
-
     app.useGlobalFilters(
         new UnexpectedExceptionsFilter(),
         new HttpExceptionsFilter(),
