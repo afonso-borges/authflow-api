@@ -50,7 +50,10 @@ describe("RequestPasswordResetController", () => {
 
     it("should call service.execute with requestPasswordResetData and user data", async () => {
         await controller.handle(requestPasswordResetData, mockRequest);
-        expect(service.execute).toHaveBeenCalledWith(requestPasswordResetData, mockRequest.user);
+        expect(service.execute).toHaveBeenCalledWith(
+            requestPasswordResetData,
+            mockRequest.user.email,
+        );
     });
 
     it("should return BaseResponse with null data", async () => {

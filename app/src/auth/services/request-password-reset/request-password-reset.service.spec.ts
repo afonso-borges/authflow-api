@@ -86,8 +86,7 @@ describe("RequestPasswordResetService", () => {
     });
 
     it("should find user by email", async () => {
-        // @ts-expect-error Typing issue
-        await service.execute(requestPasswordResetData, mockUser);
+        await service.execute(requestPasswordResetData, mockUser.email);
         expect(prisma.user.findUnique).toHaveBeenCalledWith({
             where: { email: requestPasswordResetData.email },
         });
@@ -96,24 +95,21 @@ describe("RequestPasswordResetService", () => {
     it("should throw BadRequestException if user not found", async () => {
         jest.spyOn(prisma.user, "findUnique").mockResolvedValueOnce(null);
 
-        // @ts-expect-error Typing issue
-        await expect(service.execute(requestPasswordResetData, mockUser)).rejects.toThrow(
+        await expect(service.execute(requestPasswordResetData, mockUser.email)).rejects.toThrow(
             new BadRequestException("auth.password_reset.user_not_found"),
         );
     });
 
     it("should throw UnauthorizedException if requesting user is different from authenticated user", async () => {
-        const differentUser = { ...mockUser, id: "different-user-id" };
+        const differentEmail = "another@mail.com";
 
-        // @ts-expect-error Typing issue
-        await expect(service.execute(requestPasswordResetData, differentUser)).rejects.toThrow(
+        await expect(service.execute(requestPasswordResetData, differentEmail)).rejects.toThrow(
             new UnauthorizedException("auth.error.unauthorized"),
         );
     });
 
     it("should generate a JWT token with correct payload", async () => {
-        // @ts-expect-error Typing issue
-        await service.execute(requestPasswordResetData, mockUser);
+        await service.execute(requestPasswordResetData, mockUser.email);
         expect(jwtService.sign).toHaveBeenCalledWith(
             {
                 sub: mockUser.id,
@@ -128,14 +124,12 @@ describe("RequestPasswordResetService", () => {
     });
 
     it("should get frontend URL from config", async () => {
-        // @ts-expect-error Typing issue
-        await service.execute(requestPasswordResetData, mockUser);
+        await service.execute(requestPasswordResetData, mockUser.email);
         expect(configService.get).toHaveBeenCalledWith("FRONTEND_URL");
     });
 
     it("should send email with reset URL", async () => {
-        // @ts-expect-error Typing issue
-        await service.execute(requestPasswordResetData, mockUser);
+        await service.execute(requestPasswordResetData, mockUser.email);
         const resetUrl = `${mockFrontendUrl}/reset-password?token=${mockToken}`;
         expect(mailService.execute).toHaveBeenCalledWith(
             mockUser.email,

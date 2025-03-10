@@ -4,7 +4,6 @@ import { UpdateUserController } from "./update-user.controller";
 import { UpdateUserService } from "app/src/users/services";
 import { GetMetadataService } from "@shared/utils/services/get-metadata.service";
 import { UpdateUserDTO } from "@user/dtos/user.schema";
-import { it } from "node:test";
 
 describe("UpdateUserController", () => {
     let controller: UpdateUserController;
