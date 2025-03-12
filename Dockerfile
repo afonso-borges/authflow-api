@@ -10,7 +10,8 @@ RUN corepack enable && corepack prepare yarn@4.2.2 --activate
 
 # Copiar arquivos de configuração do projeto
 COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn ./.yarn
+RUN mkdir -p .yarn
+COPY .yarn/* ./.yarn/
 
 # Instalar dependências
 RUN yarn install --immutable
@@ -32,9 +33,13 @@ WORKDIR /app
 # Instalar dependências do Prisma e PostgreSQL client
 RUN apk add --no-cache openssl postgresql-client
 
+# Ativar o Corepack e instalar o Yarn
+RUN corepack enable && corepack prepare yarn@4.2.2 --activate
+
 # Copiar arquivos de configuração do projeto
 COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn ./.yarn
+RUN mkdir -p .yarn
+COPY .yarn/* ./.yarn/
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/app/prisma ./app/prisma
@@ -42,5 +47,5 @@ COPY --from=builder /app/app/prisma ./app/prisma
 # Expor a porta da aplicação
 EXPOSE 3000
 
-# Comando para iniciar a aplicação
-CMD ["yarn", "start:prod"]
+# Comando para iniciar a aplicação com Corepack habilitado
+CMD ["sh", "-c", "corepack enable && yarn prisma:migrate:deploy && yarn start:prod"]
