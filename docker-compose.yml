@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: authflow-api:latest
+    container_name: authflow
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-authflow}?schema=public
+    depends_on:
+      - db
+    networks:
+      - authflow-network
+    command: >
+      sh -c "corepack enable && corepack prepare yarn@4.2.2 --activate && yarn prisma:migrate:deploy && yarn start:prod"
+
+  db:
+    image: postgres:16-alpine
+    container_name: authflow-db
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+      - POSTGRES_DB=${POSTGRES_DB:-authflow}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - authflow-network
+
+networks:
+  authflow-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
