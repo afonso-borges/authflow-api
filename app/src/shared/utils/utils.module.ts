@@ -1,9 +1,8 @@
 import { Module } from "@nestjs/common";
-import { GetMetadataService } from "./services/get-metadata.service";
-import { MailService } from "./services/mail.service";
+import * as UtilsServices from "./index";
 
 @Module({
-    providers: [GetMetadataService, MailService],
-    exports: [GetMetadataService, MailService],
+    providers: [...Object.values(UtilsServices)],
+    exports: [...Object.values(UtilsServices)],
 })
 export class UtilsModule {}

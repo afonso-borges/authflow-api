@@ -5,6 +5,7 @@ import { JwtService } from "@nestjs/jwt";
 import { Service } from "@shared/interfaces/service.interface";
 import { PrismaRepository } from "@shared/repositories/prisma.repository";
 import { MailService } from "@shared/utils/services/mail.service";
+import { ValidateUrlService } from "@shared/utils/services/validate-url.service";
 
 @Injectable()
 export class RequestPasswordResetService implements Service {
@@ -14,6 +15,7 @@ export class RequestPasswordResetService implements Service {
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService,
         private readonly mailerService: MailService,
+        private readonly validateUrlService: ValidateUrlService,
     ) {}
 
     async execute(dto: RequestPasswordResetDTO, userEmail: string): Promise<void> {
@@ -43,10 +45,13 @@ export class RequestPasswordResetService implements Service {
             },
         );
 
-        const frontendUrl = this.configService.get<string>("FRONTEND_URL");
-        const resetUrl = `${frontendUrl}/reset-password?token=${token}`;
+        const frontendUrl = await this.validateUrlService.execute(
+            this.configService.get<string>("FRONTEND_URL") || "",
+        );
+        const resetUrl = `${frontendUrl}/reset-password?token=${encodeURIComponent(token)}`;
 
         await this.mailerService.execute(user.email, "Password Reset Request", "reset_password", {
+            name: user.name,
             resetUrl,
         });
     }
