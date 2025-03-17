@@ -27,7 +27,7 @@ export class ValidateRefreshTokenService implements Service {
             throw new UnauthorizedException("auth.error.user_inactive");
         }
 
-        // Atualiza lastUsedAt
+        // Updates lastUsedAt
         await this.prisma.refreshToken.update({
             where: { id: refreshToken.id },
             data: { lastUsedAt: new Date() },

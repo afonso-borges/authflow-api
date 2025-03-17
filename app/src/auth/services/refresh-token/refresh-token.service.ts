@@ -20,13 +20,13 @@ export class RefreshTokenService implements Service {
     ): Promise<{ access_token: string; refresh_token: string; user: AuthUserDTO }> {
         const refreshTokenData = await this.validateRefreshTokenService.execute(token);
 
-        // Revoga o token atual após validação
+        // Revoke the token after validation
         await this.revokeRefreshTokenService.execute(token);
 
-        // Gera novo access token
+        // Generate new access token
         const accessToken = this.jwtService.sign({ sub: refreshTokenData.userId });
 
-        // Gera novo refresh token
+        // Generate new refresh token
         const refreshToken = await this.createRefreshTokenService.execute(refreshTokenData.userId);
 
         return {

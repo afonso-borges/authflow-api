@@ -57,7 +57,7 @@ export const resetPasswordSchema = z.object({
         }),
 });
 
-// DTOs gerados a partir dos schemas
+// DTOs generated from schemas
 export type LoginDTO = z.infer<typeof loginSchema>;
 export type RegisterDTO = z.infer<typeof registerSchema>;
 export type AuthUserDTO = z.infer<typeof userSchema>;

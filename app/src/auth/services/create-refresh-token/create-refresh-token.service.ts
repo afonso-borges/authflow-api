@@ -13,7 +13,7 @@ export class CreateRefreshTokenService implements Service {
 
     async execute(userId: string) {
         const expiresAt = new Date();
-        expiresAt.setDate(expiresAt.getDate() + 7); // 7 dias de expiração
+        expiresAt.setDate(expiresAt.getDate() + 7); // 7 days expiration
 
         const refreshToken = await this.prisma.refreshToken.create({
             data: {
