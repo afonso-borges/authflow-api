@@ -3,7 +3,7 @@ import { Service } from "@shared/interfaces/service.interface";
 import { PrismaRepository } from "@shared/repositories/prisma.repository";
 import { Inject, Injectable } from "@nestjs/common";
 
-// Interface para o filtro de usuários
+// Interface for user filters
 interface UserWhereInput {
     status?: typeof userStatusEnum._type;
     OR?: Array<{

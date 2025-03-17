@@ -17,7 +17,7 @@ async function bootstrap() {
         logger: ["error", "warn", "log", "debug", "verbose"],
     });
 
-    // Configuração global de pipes
+    // Global pipes configuration
     app.useGlobalPipes(
         new ValidationPipe({
             transform: true,

@@ -5,7 +5,7 @@ import { UpdateUserService } from "./update-user.service";
 import { UpdateUserDTO, userStatusEnum } from "@user/dtos/user.schema";
 import * as bcrypt from "bcrypt";
 
-// Mock bcrypt para não precisar calcular hash real nos testes
+// Mock bcrypt to avoid calculating real hash in tests
 jest.mock("bcrypt", () => ({
     hash: jest.fn(() => "mocked_hashed_password"),
 }));

@@ -4,7 +4,7 @@ import { PrismaRepository } from "@shared/repositories/prisma.repository";
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { hash } from "bcrypt";
 
-// Interface para os dados de atualização do usuário
+// Interface for user update data
 interface UserUpdateData {
     name?: string;
     status?: typeof userStatusEnum._type;

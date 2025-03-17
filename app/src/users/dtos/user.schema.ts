@@ -51,7 +51,7 @@ export const userPaginationSchema = z.object({
     search: z.string().optional(),
 });
 
-// DTOs gerados a partir dos schemas
+// DTOs generated from schemas
 export type CreateUserDTO = z.infer<typeof createUserSchema>;
 export type UpdateUserDTO = z.infer<typeof updateUserSchema>;
 export type UserDTO = z.infer<typeof userSchema>;
