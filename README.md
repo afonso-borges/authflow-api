@@ -1,67 +1,65 @@
 # AuthFlow API
 
-Uma API robusta de autenticação construída com NestJS, Prisma e PostgreSQL, oferecendo um sistema completo de autenticação com refresh tokens.
+A robust authentication API built with NestJS, Prisma, and PostgreSQL, offering a complete authentication system with refresh tokens.
 
-## 🚀 Funcionalidades
+## 🚀 Features
 
-- ✅ Registro e login de usuários
-- 🔄 Sistema de refresh token
-- 🔒 Autenticação JWT
-- 🌐 Suporte a i18n para mensagens
-- 🛡️ Validação de dados com Zod
-- 📝 Logs estruturados
-- 🔍 Rastreamento de sessões
+- ✅ User registration and login
+- 🔄 Refresh token system
+- 🔒 JWT authentication
+- 🛡️ Data validation with Zod
+- 🌐 Structured message keys (ready for i18n integration)
 
-## 🛠️ Tecnologias
+## 🛠️ Technologies
 
-- [NestJS](https://nestjs.com/) - Framework Node.js progressivo
-- [Prisma](https://www.prisma.io/) - ORM moderno para Node.js e TypeScript
-- [PostgreSQL](https://www.postgresql.org/) - Banco de dados relacional
-- [JWT](https://jwt.io/) - JSON Web Tokens para autenticação
-- [Zod](https://zod.dev/) - Validação de schemas TypeScript-first
-- [Jest](https://jestjs.io/) - Framework de testes
+- [NestJS](https://nestjs.com/) - Progressive Node.js framework
+- [Prisma](https://www.prisma.io/) - Modern ORM for Node.js and TypeScript
+- [PostgreSQL](https://www.postgresql.org/) - Relational database
+- [JWT](https://jwt.io/) - JSON Web Tokens for authentication
+- [Zod](https://zod.dev/) - TypeScript-first schema validation
+- [Jest](https://jestjs.io/) - Testing framework
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
 - Node.js (v18+)
 - PostgreSQL
-- npm ou yarn
+- npm or yarn
 
-## 🔧 Instalação
+## 🔧 Installation
 
-1. Clone o repositório:
+1. Clone the repository:
 
 ```bash
 git clone git@github.com:afonso-borges/authflow-api.git
 cd authflow-api
 ```
 
-2. Instale as dependências:
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Configure as variáveis de ambiente:
+3. Configure environment variables:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Configure seu `.env` com as credenciais do banco:
+4. Configure your `.env` with database credentials:
 
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/authflow?schema=public"
-JWT_SECRET="seu-secret-aqui"
+JWT_SECRET="your-secret-here"
 ```
 
-5. Execute as migrations:
+5. Run migrations:
 
 ```bash
 npx prisma migrate dev
 ```
 
-6. Inicie o servidor:
+6. Start the server:
 
 ```bash
 npm run start:dev
@@ -85,9 +83,9 @@ GET /users/:id
 PUT /users/:id
 ```
 
-### Formato de Resposta
+### Response Format
 
-Todas as respostas seguem o padrão:
+All responses follow this pattern:
 
 ```typescript
 interface BaseResponse<T> {
@@ -98,14 +96,14 @@ interface BaseResponse<T> {
 }
 ```
 
-## 🔐 Segurança
+## 🔐 Security
 
-- Senhas hasheadas com bcrypt
-- Tokens JWT com expiração
-- Sistema de refresh token com revogação
-- Proteção contra ataques comuns
+- Passwords hashed with bcrypt
+- JWT tokens with expiration
+- Refresh token system with revocation
+- Protection against common attacks
 
-## 🧪 Testes
+## 🧪 Tests
 
 ```bash
 # unit tests
@@ -115,30 +113,30 @@ npm run test
 npm run test:cov
 ```
 
-## 📦 Estrutura do Projeto
+## 📦 Project Structure
 
 ```
 app/
-├── src/                  # Código fonte da aplicação
-│   ├── auth/             # Módulo de autenticação
-│   │   ├── controllers/  # Controladores
-│   │   ├── dtos/         # Objetos de transferência de dados
-│   │   ├── services/     # Serviços
-│   │   └── strategies/   # Estratégias JWT
-│   ├── config/           # Configurações da aplicação
-│   ├── shared/           # Recursos compartilhados
-│   │   ├── interfaces/   # Interfaces compartilhadas
-│   │   ├── filters/      # Filtros de exceção
-│   │   ├── interceptors/ # Interceptadores
-│   │   └── pipes/        # Pipes de validação
-│   └── main.ts           # Ponto de entrada da aplicação
-└── prisma/               # Configuração e schemas do Prisma
+├── src/                  # Application source code
+│   ├── auth/             # Authentication module
+│   │   ├── controllers/  # Controllers
+│   │   ├── dtos/         # Data transfer objects
+│   │   ├── services/     # Services
+│   │   └── strategies/   # JWT strategies
+│   ├── config/           # Application configurations
+│   ├── shared/           # Shared resources
+│   │   ├── interfaces/   # Shared interfaces
+│   │   ├── filters/      # Exception filters
+│   │   ├── interceptors/ # Interceptors
+│   │   └── pipes/        # Validation pipes
+│   └── main.ts           # Application entry point
+└── prisma/               # Prisma configuration and schemas
 ```
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-1. Faça o fork do projeto
-2. Crie sua feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
