@@ -53,13 +53,19 @@ DATABASE_URL="postgresql://user:password@localhost:5432/authflow?schema=public"
 JWT_SECRET="your-secret-here"
 ```
 
-5. Run migrations:
+5. Make sure your database is running
+
+```bash
+docker start postgres
+```
+
+6. Run migrations:
 
 ```bash
 npx prisma migrate dev
 ```
 
-6. Start the server:
+7. Start the server:
 
 ```bash
 npm run start:dev
