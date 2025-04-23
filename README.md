@@ -72,15 +72,10 @@ npm run start:dev
 ```bash
 POST /auth/register
 POST /auth/login
+POST /auth/logout
 POST /auth/refresh
-```
-
-### Users
-
-```bash
-GET /users
-GET /users/:id
-PUT /users/:id
+POST /auth/reset-password
+POST /auth/request-password-reset
 ```
 
 ### Response Format
